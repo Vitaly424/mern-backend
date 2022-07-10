@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import mongose from "mongoose";
-import cors from 'cors';
+import cors from "cors";
 
 import {
   registerValidation,
@@ -13,9 +13,7 @@ import { UserController, PostController } from "./controllers/index.js";
 import { checkAuth, handleValidationsErrors } from "./utils/index.js";
 
 mongose
-  .connect(
-    "mongodb+srv://admin:123@cluster0.6hceh.mongodb.net/blog?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("DB - ok");
   })
@@ -79,7 +77,7 @@ app.patch(
   PostController.update
 );
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
